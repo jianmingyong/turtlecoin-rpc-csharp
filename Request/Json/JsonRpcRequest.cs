@@ -2,14 +2,14 @@
 
 namespace TurtlecoinRpc.Request.Json
 {
-    internal class JsonRpcRequest : JsonRpcRequest<string[]>
+    public class JsonRpcRequest : JsonRpcRequest<string[]>
     {
         public JsonRpcRequest(string method, string password = null, ulong id = 0) : base(method, new string[0], password, id)
         {
         }
     }
 
-    internal class JsonRpcRequest<TRequest>
+    public class JsonRpcRequest<TRequest>
     {
         [JsonProperty("jsonrpc", Required = Required.Always)]
         public string JsonRpc { get; set; }

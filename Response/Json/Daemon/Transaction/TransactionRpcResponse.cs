@@ -23,7 +23,7 @@ namespace TurtlecoinRpc.Response.Json.Daemon.Transaction
         /// Get the array of input transactions.
         /// </summary>
         [JsonProperty("vin")]
-        public InputTransactionRpcResponse[] InputTransactions { get; set; }
+        public InputTransactionRpcResponse<InputTransactionValueRpcResponse>[] InputTransactions { get; set; }
 
         /// <summary>
         /// Get the array of output transactions.

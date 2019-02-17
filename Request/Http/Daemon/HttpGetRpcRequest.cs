@@ -2,7 +2,7 @@
 {
     internal class HttpGetRpcRequest<TResponse> : Http.HttpGetRpcRequest<TResponse>
     {
-        public HttpGetRpcRequest(DaemonRpc daemonRpc, string endpoint) : base(endpoint, daemonRpc.HttpClient, daemonRpc.HttpRpcRequestOptions)
+        public HttpGetRpcRequest(RemoteDaemonRpcClient remoteDaemonRpcClient, string endpoint) : base(endpoint, remoteDaemonRpcClient.HttpClient, remoteDaemonRpcClient.HttpRpcRequestOptions)
         {
         }
     }

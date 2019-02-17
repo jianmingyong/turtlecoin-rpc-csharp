@@ -2,12 +2,12 @@
 
 namespace TurtlecoinRpc.Response.Json.Daemon.Transaction
 {
-    public class InputTransactionRpcResponse
+    public class InputTransactionRpcResponse<TValue> where TValue : class
     {
         [JsonProperty("type")]
         public string Type { get; set; }
 
         [JsonProperty("value")]
-        public InputTransactionValueRpcResponse Value { get; set; }
+        public TValue Value { get; set; }
     }
 }

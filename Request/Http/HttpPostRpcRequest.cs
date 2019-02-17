@@ -1,4 +1,5 @@
-﻿using System.Net.Http;
+﻿using System.IO;
+using System.Net.Http;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -10,18 +11,18 @@ namespace TurtlecoinRpc.Request.Http
     {
         private TRequest Request { get; }
 
-        public HttpPostRpcRequest(string endpoint, TRequest request, HttpClient httpClient = null, HttpRpcRequestOptions httpRpcRequestOptions = null) : base(endpoint, httpClient, httpRpcRequestOptions)
+        protected HttpPostRpcRequest(string endpoint, TRequest request, HttpClient httpClient = null, HttpRpcRequestOptions httpRpcRequestOptions = null) : base(endpoint, httpClient, httpRpcRequestOptions)
         {
             Request = request;
         }
 
-        public async Task<TResponse> GetResponseAsync(CancellationToken cancellationToken = default(CancellationToken))
+        public async Task<TResponse> GetResponseAsync(CancellationToken cancellationToken = default)
         {
             var request = new StringContent(JsonConvert.SerializeObject(Request), Encoding.UTF8, "application/json");
 
             CancellationTokenSource cancellationTokenSource = null;
 
-            if (cancellationToken == default(CancellationToken))
+            if (cancellationToken == default)
             {
                 cancellationTokenSource = new CancellationTokenSource(HttpRpcRequestOptions.RequestTimeoutDelay);
                 cancellationToken = cancellationTokenSource.Token;
@@ -32,8 +33,16 @@ namespace TurtlecoinRpc.Request.Http
                 var response = await HttpClient.PostAsync(Endpoint, request, cancellationToken).ConfigureAwait(false);
                 response.EnsureSuccessStatusCode();
 
-                var json = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
-                return JsonConvert.DeserializeObject<TResponse>(json);
+                var test = await response.Content.ReadAsStringAsync();
+
+                using (var streamReader = new StreamReader(await response.Content.ReadAsStreamAsync().ConfigureAwait(false)))
+                {
+                    using (var jsonReader = new JsonTextReader(streamReader))
+                    {
+                        var serializer = new JsonSerializer();
+                        return serializer.Deserialize<TResponse>(jsonReader);
+                    }
+                }
             }
             finally
             {

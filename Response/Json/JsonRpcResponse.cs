@@ -10,7 +10,7 @@ namespace TurtlecoinRpc.Response.Json
         [JsonProperty("jsonrpc")]
         public string JsonRpc { get; set; }
 
-        [JsonProperty("error")]
+        [JsonProperty("error", DefaultValueHandling = DefaultValueHandling.Ignore)]
         public ErrorRpcResponse Error { get; set; }
 
         [JsonProperty("result")]

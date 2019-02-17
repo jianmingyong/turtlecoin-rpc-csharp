@@ -2,7 +2,7 @@
 
 namespace TurtlecoinRpc.Request.Json.Daemon
 {
-    internal class TransactionRpcRequest
+    public class TransactionRpcRequest
     {
         [JsonProperty("hash")]
         public string Hash { get; set; }

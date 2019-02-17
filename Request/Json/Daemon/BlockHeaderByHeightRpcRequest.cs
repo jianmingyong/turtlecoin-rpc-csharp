@@ -2,7 +2,7 @@
 
 namespace TurtlecoinRpc.Request.Json.Daemon
 {
-    internal class BlockHeaderByHeightRpcRequest
+    public class BlockHeaderByHeightRpcRequest
     {
         [JsonProperty("height")]
         public ulong Height { get; set; }

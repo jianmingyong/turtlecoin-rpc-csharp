@@ -2,7 +2,7 @@
 
 namespace TurtlecoinRpc.Request.Json.Daemon
 {
-    internal class BlockTemplateRpcRequest
+    public class BlockTemplateRpcRequest
     {
         [JsonProperty("reserve_size")]
         public ulong ReserveSize { get; set; }

@@ -2,6 +2,9 @@
 
 namespace TurtlecoinRpc.Request.Http
 {
+    /// <summary>
+    /// Provides a class to change the behavior of <see cref="T:TurtlecoinRpc.RemoteDaemonRpcClient" /> class.
+    /// </summary>
     public class HttpRpcRequestOptions
     {
         /// <summary>
